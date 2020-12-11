@@ -1,0 +1,23 @@
+- job:
+    name: jjb-pipeline-1
+    project-type: pipeline
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    display-name: 'jjb-pipeline-1'
+    dsl: !include-raw: ../pipeline/Jenkinsfile
+
+
+- job:
+    name: jjb-pipeline-2
+    project-type: pipeline
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    display-name: 'jjb-pipeline-2'
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/hwchiu/jenkins-demo
+      script-path: pipeline/Jenkinsfile
+

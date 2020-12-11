@@ -1,0 +1,37 @@
+- job-template:
+    name: '{job-name}'
+    id: 'freestyle-demo'
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    scm:
+      - git:
+          url: https://github.com/hwchiu/netutils
+    display-name: '{job-name}'
+    build-discarder:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+    parameters:
+    - string:
+        name: registry
+        default: '{reg}'
+        description: "A parameter named FOO, defaults to 'bar'."
+    builders:
+      - shell: |
+          pwd
+          docker build .
+
+- project:
+    name: jjb-demo
+    jobs:
+      - freestyle-demo:
+          job-name: 'jjb-freestyle-demo2'
+          reg: 'docker.io'
+      - freestyle-demo:
+          job-name: 'jjb-freestyle-demo3'
+          reg: 'quay.io'
+
+
